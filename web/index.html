@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="id" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F6F4EE">
+  <meta name="description" content="PDFForge — alat PDF & dokumen gratis: gabung, pisah, kompres, konversi, OCR, tanda tangan, dan lainnya. File dihapus otomatis.">
+  <title>PDFForge — Alat PDF &amp; Dokumen Gratis</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <style>#splash{position:fixed;inset:0;z-index:20000;background:#F6F4EE;display:flex;align-items:center;justify-content:center}</style>
+  <link rel="stylesheet" href="/styles.css?v=6">
+  <link rel="stylesheet" href="/portal.css?v=6">
+  <link rel="stylesheet" href="/logic.css?v=6">
+  <link rel="stylesheet" href="/polish.css?v=6">
+  <link rel="stylesheet" href="/system.css?v=6">
+  <link rel="stylesheet" href="/easy.css?v=6">
+</head>
+<body>
+  <div id="splash" role="status" aria-label="Memuat PDFForge">
+    <div class="splash-inner">
+      <div class="sheet-stack" aria-hidden="true">
+        <span class="sheet s1"><i></i></span>
+        <span class="sheet s2"><i></i></span>
+        <span class="sheet s3"><i></i></span>
+        <span class="sheet s4"><i></i></span>
+        <span class="splash-mark"><svg viewBox="0 0 48 48" width="40" height="40" aria-hidden="true"><path d="M16 9h12l8 8v22H16z" fill="#FFFDF8"/><path d="M28 9v8h8z" fill="#B9CDBD"/><rect x="20" y="22" width="12" height="4" rx="1" fill="#175E3C"/><rect x="20" y="28.5" width="8" height="2.6" rx="1.3" fill="#7FA086"/></svg></span>
+      </div>
+      <p class="splash-count"><strong id="splash-count">0</strong>/100 <span id="splash-count-label">alat</span></p>
+      <p class="splash-word">pdf<span>forge</span></p>
+      <div class="splash-track"><div class="splash-fill"></div></div>
+    </div>
+  </div>
+  <noscript><style>#splash{display:none!important}</style></noscript>
+  <header class="topbar">
+    <a class="brand" href="/" aria-label="PDFForge beranda" data-i18n-aria="PDFForge beranda"><span class="brand-mark"><svg viewBox="0 0 48 48" width="17" height="17" aria-hidden="true"><path d="M16 9h12l8 8v22H16z" fill="#FFFDF8"/><path d="M28 9v8h8z" fill="#B9CDBD"/><rect x="20" y="22" width="12" height="4" rx="1" fill="#175E3C"/><rect x="20" y="28.5" width="8" height="2.6" rx="1.3" fill="#7FA086"/></svg></span><span>pdf<span class="brand-light">forge</span></span></a>
+    <nav aria-label="Navigasi utama" data-i18n-aria="Navigasi utama">
+      <a class="nav-link active" href="#converter" data-i18n="Mulai">Mulai</a>
+      <a class="nav-link" href="#tools" data-i18n="Semua alat">Semua alat</a>
+      <a class="nav-link" href="#history" data-i18n="Riwayat">Riwayat</a>
+      <a class="nav-link" href="/api/docs" target="_blank" rel="noopener">API</a>
+    </nav>
+    <div class="nav-actions">
+      <button class="btn-nav-tool" id="nav-reader-btn" type="button" data-i18n="Baca PDF">Baca PDF</button>
+      <button class="btn-nav-tool" id="nav-workflow-btn" type="button" data-i18n="Alur kerja">Alur kerja</button>
+      <button class="btn-nav-tool" id="nav-admin-btn" type="button" data-i18n="Statistik">Statistik</button>
+      <button class="btn-nav-tool" id="lang-toggle-btn" type="button" aria-label="Ganti bahasa" data-i18n-aria="Ganti bahasa">EN</button>
+      <button class="btn-nav-tool" id="theme-toggle-btn" type="button" aria-label="Ganti tema" data-i18n-aria="Ganti tema">◐</button>
+    </div>
+    <div class="free-badge"><span></span><span data-i18n="Gratis, tanpa akun">Gratis, tanpa akun</span></div>
+  </header>
+
+  <main>
+    <section class="hero" id="converter">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="eyebrow-line"></span><span data-i18n="ALAT PDF &amp; DOKUMEN GRATIS">ALAT PDF &amp; DOKUMEN GRATIS</span></p>
+        <h1><span data-i18n="Berkas PDF,">Berkas PDF,</span><br><em data-i18n="beres dalam 3 langkah.">beres dalam 3 langkah.</em></h1>
+        <p class="hero-sub" data-i18n="Gabung, pisah, kompres, konversi ke Word/Excel, OCR, tanda tangan, dan 90+ alat lainnya. Pilih alatnya di bawah, unggah berkas, unduh hasilnya.">Gabung, pisah, kompres, konversi ke Word/Excel, OCR, tanda tangan, dan 90+ alat lainnya. Pilih alatnya di bawah, unggah berkas, unduh hasilnya.</p>
+        <div class="hero-notes">
+          <span><b>1</b> <span data-i18n="Unggah berkas">Unggah berkas</span></span>
+          <span><b>2</b> <span data-i18n="Atur seperlunya">Atur seperlunya</span></span>
+          <span><b>3</b> <span data-i18n="Unduh hasil">Unduh hasil</span></span>
+        </div>
+        <div class="hero-shortcuts">
+          <button class="tool-card mini" data-preset="pdf-pdf" type="button"><strong data-i18n="Gabung PDF">Gabung PDF</strong><small data-i18n="2+ berkas jadi 1">2+ berkas jadi 1</small></button>
+          <button class="tool-card mini" data-preset="any-pdf" type="button"><strong data-i18n="Ke PDF">Ke PDF</strong><small data-i18n="Word/Excel/gambar">Word/Excel/gambar</small></button>
+          <button class="tool-card mini" data-preset="pdf-image" type="button"><strong data-i18n="PDF ke Gambar">PDF ke Gambar</strong><small>JPG/PNG</small></button>
+          <button class="tool-card mini" data-preset="pdf-text" type="button"><strong data-i18n="Ambil teksnya">Ambil teksnya</strong><small>TXT/DOCX</small></button>
+        </div>
+      </div>
+
+      <div class="workbench" id="workbench">
+        <div class="workbench-head">
+          <div class="wb-title">
+            <span class="step" data-i18n="ALAT AKTIF">ALAT AKTIF</span>
+            <span class="panel-title" id="active-tool-title">Konversi berkas</span>
+          </div>
+          <div class="wb-head-actions">
+            <button class="text-button" id="change-tool-btn" type="button"><span data-i18n="Ganti alat">Ganti alat</span> ⌄</button>
+            <span class="secure-label"><span aria-hidden="true"></span><span data-i18n="Pemrosesan aman">Pemrosesan aman</span></span>
+          </div>
+        </div>
+        <p class="tool-desc" id="active-tool-desc">Pilih salah satu alat di daftar bawah, atau langsung unggah berkas untuk konversi bebas.</p>
+        <ol class="wb-steps" id="wb-steps" aria-label="Langkah pengerjaan" data-i18n-aria="Langkah pengerjaan">
+          <li class="wb-step active" data-step="1"><span class="wb-step-n">1</span><span data-i18n="Unggah berkas">Unggah berkas</span></li>
+          <li class="wb-step" data-step="2"><span class="wb-step-n">2</span><span data-i18n="Atur &amp; proses">Atur &amp; proses</span></li>
+          <li class="wb-step" data-step="3"><span class="wb-step-n">3</span><span data-i18n="Unduh hasil">Unduh hasil</span></li>
+        </ol>
+        <div class="active-tool-indicator" id="active-tool-indicator" hidden></div>
+
+        <label class="dropzone" id="dropzone" for="file-input">
+          <input id="file-input" type="file" multiple hidden>
+          <span class="upload-art" aria-hidden="true"><span>↑</span></span>
+          <strong data-i18n="Tarik &amp; letakkan berkas di sini">Tarik &amp; letakkan berkas di sini</strong>
+          <span class="drop-help"><span data-i18n="atau">atau</span> <u data-i18n="pilih berkas dari perangkat">pilih berkas dari perangkat</u></span>
+          <span class="format-hint">PDF · DOCX · XLSX · PPTX · JPG · PNG · TXT · MD · HTML</span>
+          <span class="format-hint" id="drop-limits" hidden></span>
+        </label>
+        <div class="file-list" id="file-list" hidden></div>
+        <div class="file-toolbar" id="file-toolbar" hidden>
+          <button type="button" class="btn-sm ghost" id="organize-pages-btn" hidden data-i18n="Susun halaman">Susun halaman</button>
+          <button type="button" class="btn-sm ghost" id="sort-name-btn" data-i18n="Urutkan A→Z">Urutkan A→Z</button>
+          <button type="button" class="btn-sm ghost" id="sort-size-btn" data-i18n="Urutkan ukuran">Urutkan ukuran</button>
+          <button type="button" class="btn-sm ghost" id="clear-files-btn" data-i18n="Hapus semua">Hapus semua</button>
+          <button type="button" class="btn-sm ghost" id="add-more-btn">+ <span data-i18n="Tambah berkas">Tambah berkas</span></button>
+        </div>
+
+        <div class="settings-row" id="settings-row">
+          <label class="field-label" for="target" data-i18n="SIMPAN SEBAGAI">SIMPAN SEBAGAI</label>
+          <div class="select-wrap"><select id="target" disabled><option data-i18n="Unggah berkas terlebih dahulu">Unggah berkas terlebih dahulu</option></select><span>⌄</span></div>
+        </div>
+        <p class="capability-note" id="capability-note" hidden></p>
+
+        <div class="tool-mode" id="tool-mode" hidden aria-hidden="true">
+          <label class="field-label" for="operation">OPERASI INTERNAL</label>
+          <select id="operation">
+            <option value="convert">Konversi format</option>
+            <optgroup label="Atur halaman">
+              <option value="merge">Gabung PDF / gambar</option>
+              <option value="split">Pisah / ambil halaman</option>
+              <option value="smart_split">Pisah otomatis (ZIP)</option>
+              <option value="organize">Atur ulang halaman</option>
+              <option value="reorder">Susun ulang halaman</option>
+              <option value="remove_pages">Hapus halaman</option>
+              <option value="rotate">Putar halaman</option>
+              <option value="crop">Pangkas margin</option>
+              <option value="page_numbers">Beri nomor halaman</option>
+            </optgroup>
+            <optgroup label="Kompres &amp; arsip">
+              <option value="compress">Perkecil ukuran PDF</option>
+              <option value="repair">Perbaiki PDF</option>
+              <option value="pdf_to_pdfa">Ubah ke PDF/A</option>
+              <option value="validate_pdfa">Validasi PDF/A</option>
+            </optgroup>
+            <optgroup label="Konversi &amp; ekstrak">
+              <option value="ocr_to_word">PDF scan ke Word (OCR)</option>
+              <option value="ocr_to_excel">PDF scan ke Excel (OCR)</option>
+              <option value="pdf_to_pptx">PDF ke PowerPoint</option>
+              <option value="pdf_to_excel">PDF ke Excel</option>
+              <option value="pdf_to_md">PDF ke Markdown</option>
+              <option value="pdf_to_llm_md">PDF ke Markdown (LLM)</option>
+              <option value="pdf_to_json">PDF ke JSON</option>
+              <option value="pdf_to_xml">PDF ke XML</option>
+            </optgroup>
+            <optgroup label="Edit &amp; formulir">
+              <option value="add_text">Tambah teks</option>
+              <option value="edit_pdf">Edit PDF</option>
+              <option value="add_image">Tambah gambar / logo</option>
+              <option value="add_shapes">Tambah bentuk</option>
+              <option value="add_annotations">Tambah catatan</option>
+              <option value="highlight">Sorot kata kunci</option>
+              <option value="draw">Coretan bebas</option>
+              <option value="create_form">Buat kolom formulir</option>
+              <option value="fill_form">Isi formulir (JSON)</option>
+            </optgroup>
+            <optgroup label="OCR &amp; scan">
+              <option value="ocr_pdf">OCR jadi PDF bisa dicari</option>
+            </optgroup>
+            <optgroup label="Keamanan &amp; tanda tangan">
+              <option value="protect">Kunci dengan kata sandi</option>
+              <option value="password_encrypt">Enkripsi kata sandi</option>
+              <option value="unlock">Buka kunci</option>
+              <option value="redact">Sensor data</option>
+              <option value="permanent_remove">Hapus metadata permanen</option>
+              <option value="digital_sign">Tanda tangan digital</option>
+              <option value="signature_request">Permintaan tanda tangan</option>
+              <option value="audit_trail">Jejak audit</option>
+            </optgroup>
+            <optgroup label="Watermark">
+              <option value="text_watermark">Watermark teks</option>
+              <option value="image_watermark">Watermark logo</option>
+            </optgroup>
+            <optgroup label="Analisis &amp; AI">
+              <option value="compare_pdf">Bandingkan 2 PDF</option>
+              <option value="ai_summarize">Ringkasan (AI)</option>
+              <option value="ai_translate">Terjemahan (AI)</option>
+              <option value="ai_extract_data">Ekstrak data (AI)</option>
+              <option value="ai_smart_split">Pisah otomatis (AI)</option>
+            </optgroup>
+            <optgroup label="Alur kerja">
+              <option value="workflow">Alur kerja bertahap</option>
+            </optgroup>
+          </select>
+        </div>
+
+        <div class="custom-tool-options" id="custom-tool-options" hidden></div>
+
+        <div class="advanced-options" id="advanced-options" hidden>
+          <label class="field-label pages-label" for="pages" data-i18n="HALAMAN (OPSIONAL)">HALAMAN (OPSIONAL)</label>
+          <input id="pages" type="text" placeholder="Contoh: 1-3, 5" data-i18n-placeholder="Contoh: 1-3, 5">
+          <label class="field-label" for="quality" data-i18n="KUALITAS GAMBAR">KUALITAS GAMBAR</label>
+          <select id="quality"><option value="85" data-i18n="Seimbang">Seimbang</option><option value="95" data-i18n="Tinggi">Tinggi</option><option value="60" data-i18n="Ukuran kecil">Ukuran kecil</option></select>
+          <label class="field-label dpi-label" for="dpi" data-i18n="RESOLUSI">RESOLUSI</label>
+          <select id="dpi"><option value="144">144 DPI</option><option value="96">96 DPI</option><option value="300">300 DPI</option></select>
+        </div>
+
+        <button class="convert-button" id="convert-button" disabled><span id="convert-label">Proses berkas</span><span aria-hidden="true">→</span></button>
+        <p class="terms" data-i18n="Berkas sumber dihapus otomatis setelah diproses; hasil tersimpan maksimal 24 jam dan bisa Anda hapus lebih awal.">Berkas sumber dihapus otomatis setelah diproses; hasil tersimpan maksimal 24 jam dan bisa Anda hapus lebih awal.</p>
+      </div>
+    </section>
+
+    <section class="trust-strip" aria-label="Informasi layanan">
+      <div><span class="trust-icon">✳</span><p><strong data-i18n="Gratis untuk semua">Gratis untuk semua</strong><small data-i18n="Semua alat terbuka. Tanpa akun, tanpa biaya tersembunyi.">Semua alat terbuka. Tanpa akun, tanpa biaya tersembunyi.</small></p></div>
+      <div><span class="trust-icon">⌑</span><p><strong data-i18n="Privasi terjaga">Privasi terjaga</strong><small><span data-i18n="Hanya sesi browser Anda yang bisa mengakses hasil. ">Hanya sesi browser Anda yang bisa mengakses hasil. </span><span id="privacy-scan-note" data-i18n="File tidak dipindai antivirus.">File tidak dipindai antivirus.</span></small></p></div>
+      <div><span class="trust-icon">↗</span><p><strong data-i18n="Hasil sungguhan">Hasil sungguhan</strong><small data-i18n="Berkas diproses nyata dan diperiksa sebelum bisa diunduh.">Berkas diproses nyata dan diperiksa sebelum bisa diunduh.</small></p></div>
+    </section>
+
+    <section class="catalog-section" id="tools">
+      <div class="catalog-head">
+        <div class="catalog-title">
+          <p class="eyebrow" data-i18n="PILIH ALAT">PILIH ALAT</p>
+          <h2 data-i18n="Mau mengerjakan apa?">Mau mengerjakan apa?</h2>
+          <p class="catalog-sub" data-i18n="Klik satu alat — kotak kerja di atas langsung siap dengan pengaturan yang tepat. Lalu unggah berkas dan unduh hasilnya.">Klik satu alat — kotak kerja di atas langsung siap dengan pengaturan yang tepat. Lalu unggah berkas dan unduh hasilnya.</p>
+        </div>
+        <div class="catalog-search-wrap">
+          <input id="tool-search-input" class="catalog-search-input" type="search" placeholder="Cari alat… contoh: gabung, kompres, word" aria-label="Cari alat" data-i18n-placeholder="Cari alat… contoh: gabung, kompres, word" data-i18n-aria="Cari alat">
+          <span class="tools-count-badge" id="tools-count-badge">100 alat</span>
+        </div>
+      </div>
+      <div class="recent-favorites" id="recent-favorites" hidden></div>
+      <div class="cat-tabs-scroll" role="tablist" aria-label="Kategori alat" data-i18n-aria="Kategori alat">
+        <button class="cat-tab active" data-cat="all" type="button" data-i18n="Semua">Semua</button>
+        <button class="cat-tab" data-cat="organize" type="button" data-i18n="Atur halaman">Atur halaman</button>
+        <button class="cat-tab" data-cat="convert" type="button" data-i18n="Konversi">Konversi</button>
+        <button class="cat-tab" data-cat="compress" type="button" data-i18n="Kompres &amp; perbaiki">Kompres &amp; perbaiki</button>
+        <button class="cat-tab" data-cat="edit" type="button" data-i18n="Edit &amp; formulir">Edit &amp; formulir</button>
+        <button class="cat-tab" data-cat="ocr" type="button" data-i18n="OCR &amp; scan">OCR &amp; scan</button>
+        <button class="cat-tab" data-cat="security" type="button" data-i18n="Keamanan">Keamanan</button>
+        <button class="cat-tab" data-cat="watermark" type="button" data-i18n="Watermark">Watermark</button>
+        <button class="cat-tab" data-cat="ai" type="button" data-i18n="Analisis &amp; AI">Analisis &amp; AI</button>
+        <button class="cat-tab" data-cat="workflow" type="button" data-i18n="Alur kerja">Alur kerja</button>
+        <button class="cat-tab" data-cat="platform" type="button" data-i18n="Platform">Platform</button>
+      </div>
+      <div class="catalog-grid" id="catalog-grid" aria-live="polite"></div>
+    </section>
+
+    <section class="history-section" id="history">
+      <div class="history-title"><div><p class="eyebrow" data-i18n="SESI BROWSER INI">SESI BROWSER INI</p><h2 data-i18n="Aktivitas terbaru">Aktivitas terbaru</h2></div><button class="text-button" id="refresh-history" data-i18n="Segarkan ↗">Segarkan ↗</button></div>
+      <div id="history-list" class="history-list"><p class="empty-history" data-i18n="Pekerjaan yang Anda lakukan akan muncul di sini.">Pekerjaan yang Anda lakukan akan muncul di sini.</p></div>
+    </section>
+
+    <section class="bottom-note"><span class="brand-mark">P</span><p><span data-i18n="Dokumen penting, diproses dengan hati-hati.">Dokumen penting, diproses dengan hati-hati.</span><br><small data-i18n="Semua fitur gratis tanpa pembayaran. Batas 100 MB per berkas dan 500 halaman adalah pengaman teknis, bukan paywall.">Semua fitur gratis tanpa pembayaran. Batas 100 MB per berkas dan 500 halaman adalah pengaman teknis, bukan paywall.</small></p><span class="engine-status" id="engine-status"><i></i> <span data-i18n="Memeriksa mesin konversi…">Memeriksa mesin konversi…</span></span></section>
+    <footer class="license-bar">
+      <span class="license-mark"><svg viewBox="0 0 48 48" width="15" height="15" aria-hidden="true"><path d="M16 9h12l8 8v22H16z" fill="#FFFDF8"/><path d="M28 9v8h8z" fill="#B9CDBD"/><rect x="20" y="22" width="12" height="4" rx="1" fill="#175E3C"/><rect x="20" y="28.5" width="8" height="2.6" rx="1.3" fill="#7FA086"/></svg></span>
+      <p>PDFForge. Licensed by <strong>Yehudadev_</strong></p>
+      <span class="license-links">
+        <a href="https://instagram.com/d4.pittt_" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://github.com/davidyehuda45-byte" target="_blank" rel="noopener">GitHub</a>
+      </span>
+    </footer>
+  </main>
+
+  <div class="context-menu" id="context-menu" hidden></div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="/splash.js?v=6" defer></script>
+  <script src="/i18n.js?v=6" defer></script>
+  <script src="/app.js?v=6" defer></script>
+  <script src="/workbench-extra.js?v=6" defer></script>
+  <script src="/pages.js?v=6" defer></script>
+  <script src="/portal.js?v=6" defer></script>
+</body>
+</html>

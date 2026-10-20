@@ -1,0 +1,19 @@
+/* PDFForge 100-feature polish pack */
+.file-toolbar{display:flex;gap:8px;margin:10px 0}
+.btn-sm.ghost{background:#f1f4ed;color:#2b3026;border:1px solid #d3d8cb}
+.hero-shortcuts{display:flex;gap:8px;margin-top:18px;flex-wrap:wrap}
+.tool-card.mini{min-height:0;padding:10px 12px;flex:1;min-width:120px}
+.tool-card.mini strong{font-size:11px}
+.catalog-sub{font-size:12px;color:#7a837d;max-width:520px}
+.context-menu{position:fixed;z-index:12000;background:#fff;border:1px solid #dfe3d9;border-radius:8px;box-shadow:0 12px 30px rgba(0,0,0,.14);padding:6px;display:flex;flex-direction:column;gap:4px;min-width:160px}
+.context-menu button{border:0;background:none;text-align:left;padding:8px 10px;border-radius:6px;cursor:pointer;font-size:13px}
+.context-menu button:hover{background:#eef2ea}
+.result-card{border:1px solid #dce7de;background:#fbfdfb;border-radius:10px;padding:14px}
+.result-card .convert-button{display:inline-flex;margin-top:10px}
+:root[data-theme="dark"]{--paper:#141715;--ink:#e8ece7;--muted:#9aa39c;--line:#2a2f2a;--white:#1d211d;--sage:#22271f}
+:root[data-theme="dark"] body,body{background:var(--paper);color:var(--ink)}
+:root[data-theme="dark"] .workbench,:root[data-theme="dark"] .tool-card,:root[data-theme="dark"] .catalog-card,:root[data-theme="dark"] .portal-modal-window{background:#1d211d;border-color:#2c332c;color:var(--ink)}
+:root[data-theme="dark"] .card-title,:root[data-theme="dark"] .hero h1{color:#eef2ec}
+:root[data-theme="dark"] .card-desc,:root[data-theme="dark"] .hero-sub{color:#a8b1a6}
+:root[data-theme="dark"] .input-styled,:root[data-theme="dark"] .catalog-search-input{background:#141715;color:#e8ece7;border-color:#333a33}
+@media(max-width:760px){.hero-shortcuts{display:grid;grid-template-columns:1fr 1fr}.nav-actions{gap:6px}.btn-nav-tool{padding:5px 8px;font-size:11px}}

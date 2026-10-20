@@ -1,0 +1,26 @@
+.capability-note {
+  color: #806c43;
+}
+
+.file-row button:focus-visible,
+.tool-card:focus-visible,
+.convert-button:focus-visible,
+.text-button:focus-visible,
+.add-more:focus-visible {
+  outline: 2px solid #477963;
+  outline-offset: 2px;
+}
+
+@media (max-width: 760px) {
+  .advanced-options {
+    grid-template-columns: 78px minmax(0, 1fr);
+    gap: 8px;
+  }
+
+  .advanced-options .pages-label { grid-column: 1; grid-row: 1; }
+  .advanced-options #pages { grid-column: 2; grid-row: 1; }
+  .advanced-options label[for="quality"] { grid-column: 1; grid-row: 2; }
+  .advanced-options #quality { grid-column: 2; grid-row: 2; }
+  .advanced-options .dpi-label { grid-column: 1; grid-row: 3; }
+  .advanced-options #dpi { grid-column: 2; grid-row: 3; }
+}

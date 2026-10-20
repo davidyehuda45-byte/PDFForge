@@ -1,0 +1,69 @@
+services:
+  postgres:
+    image: postgres:17-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: pdfforge
+      POSTGRES_USER: pdfforge
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env before starting PDFForge}"
+    ports:
+      - "127.0.0.1:${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - pdfforge-postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U pdfforge -d pdfforge"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+    security_opt:
+      - no-new-privileges:true
+  pdfforge:
+    build: .
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports:
+      - "8080:8080"
+    environment:
+      ADDR: ":8080"
+      PYTHON: "python"
+      STORAGE_PATH: "/app/storage"
+      DB_HOST: "postgres"
+      DB_PORT: "5432"
+      DB_NAME: "pdfforge"
+      DB_USER: "pdfforge"
+      DB_PASSWORD: "${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env before starting PDFForge}"
+      DB_SSLMODE: "disable"
+      MAX_UPLOAD_SIZE_MB: "${MAX_UPLOAD_SIZE_MB:-100}"
+      MAX_OUTPUT_SIZE_MB: "${MAX_OUTPUT_SIZE_MB:-300}"
+      MAX_JOB_OUTPUT_SIZE_MB: "${MAX_JOB_OUTPUT_SIZE_MB:-600}"
+      MAX_FILES_PER_JOB: "${MAX_FILES_PER_JOB:-20}"
+      MAX_PAGES_PER_FILE: "${MAX_PAGES_PER_FILE:-500}"
+      MAX_IMAGE_PIXELS: "${MAX_IMAGE_PIXELS:-50000000}"
+      MAX_IMAGE_JOB_PIXELS: "${MAX_IMAGE_JOB_PIXELS:-100000000}"
+      MAX_ARCHIVE_EXPANDED_MB: "${MAX_ARCHIVE_EXPANDED_MB:-512}"
+      MAX_ARCHIVE_FILES: "${MAX_ARCHIVE_FILES:-1000}"
+      MAX_ARCHIVE_COMPRESSION_RATIO: "${MAX_ARCHIVE_COMPRESSION_RATIO:-100}"
+      JOB_TIMEOUT_SECONDS: "${JOB_TIMEOUT_SECONDS:-300}"
+      FILE_EXPIRATION_HOURS: "${FILE_EXPIRATION_HOURS:-24}"
+      WORKER_COUNT: "${WORKER_COUNT:-2}"
+      MAX_ACTIVE_JOBS_PER_SESSION: "${MAX_ACTIVE_JOBS_PER_SESSION:-3}"
+      MAX_QUEUE_JOBS_PER_SESSION: "${MAX_QUEUE_JOBS_PER_SESSION:-20}"
+      MAX_STORED_JOBS: "${MAX_STORED_JOBS:-100000}"
+      TRUST_PROXY: "${TRUST_PROXY:-false}"
+      CLAMDSCAN: "${CLAMDSCAN:-}"
+    volumes:
+      - pdfforge-data:/app/storage
+    init: true
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    pids_limit: 64
+    mem_limit: 1g
+    cpus: 2.0
+
+volumes:
+  pdfforge-data:
+  pdfforge-postgres:

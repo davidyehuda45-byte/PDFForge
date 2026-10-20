@@ -1,0 +1,302 @@
+/* ==========================================================================
+   PDFForge — easy UI layer
+   Lapisan tampilan yang membuat alur kerja terasa sesederhana iLovePDF:
+   satu alat = satu kartu, tiga langkah jelas, tanpa nomor operasi.
+   Dimuat paling akhir agar menimpa lapisan visual sebelumnya.
+   ========================================================================== */
+
+/* ---------- header alat aktif di workbench ---------- */
+.workbench-head .wb-title { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.workbench-head .panel-title { font-size: 15px; font-weight: 700; letter-spacing: -.01em; }
+.wb-head-actions { display: flex; align-items: center; gap: 14px; }
+#change-tool-btn {
+  color: #0F4A2E; font-size: 11px; font-weight: 600; padding: 5px 10px;
+  border: 1px solid var(--line); border-radius: 99px; background: var(--card);
+  cursor: pointer; white-space: nowrap;
+}
+#change-tool-btn:hover { background: #EFF4ED; border-color: #175E3C; }
+.tool-desc { font-size: 12.5px; line-height: 1.65; color: #6E675C; margin: -6px 0 14px; }
+
+/* ---------- langkah 1-2-3 ---------- */
+.wb-steps { display: flex; flex-wrap: wrap; gap: 7px; list-style: none; margin: 0 0 14px; padding: 0; }
+.wb-step {
+  display: inline-flex; align-items: center; gap: 7px;
+  font-size: 11px; color: #8A8172; background: #FBFAF4;
+  border: 1px solid var(--line, #E4DED1); border-radius: 99px; padding: 5px 11px;
+}
+.wb-step-n {
+  display: grid; place-items: center; width: 17px; height: 17px; border-radius: 50%;
+  background: #E7EEE5; color: #0F4A2E; font: 700 10px var(--mono, monospace);
+}
+.wb-step.done { color: #0F4A2E; }
+.wb-step.done .wb-step-n { background: #CFE3D5; }
+.wb-step.active { border-color: #175E3C; background: #F1F7F1; color: #0F4A2E; font-weight: 700; }
+.wb-step.active .wb-step-n { background: #175E3C; color: #fff; }
+
+/* ---------- area unggah & tombol ---------- */
+.dropzone { height: 165px; }
+.dropzone strong { font-size: 14px; }
+.drop-help { font-size: 12px; }
+.format-hint { font-size: 9.5px; }
+.convert-button { font-size: 13.5px; padding: 14px 16px; border-radius: 8px; }
+.convert-button:disabled { background: #C9C3B2; }
+.file-row { font-size: 11px; }
+.field-label { font-size: 9.5px; }
+.select-wrap select, .tool-mode select, .advanced-options select, .advanced-options input { font-size: 12px; }
+.terms { font-size: 10px; line-height: 1.6; max-width: 46ch; margin-inline: auto; }
+.custom-tool-options { border-radius: 10px; }
+.field-hint { font-size: 10.5px; line-height: 1.55; color: #8A8172; margin: 0; }
+.custom-field .field-hint { margin-top: 5px; }
+
+/* dropdown operasi internal tidak pernah ditampilkan ke pengguna */
+#tool-mode { display: none !important; }
+
+/* ---------- hasil konversi ---------- */
+.result-card {
+  border: 1px solid #CFE3D5; background: #F5FAF5; border-radius: 10px;
+  padding: 14px 16px; margin: 14px 0 0;
+}
+.result-title { font-size: 13px; font-weight: 700; color: #0F4A2E; margin-bottom: 2px; }
+.result-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-top: 12px; }
+.result-actions .convert-button { width: auto; flex: 1 1 230px; margin: 0; }
+.result-actions .text-button { padding: 6px 2px; font-size: 11.5px; }
+.result-card .terms { text-align: left; margin: 10px 0 0; max-width: none; }
+
+/* ---------- kartu alat ---------- */
+.catalog-grid { grid-template-columns: repeat(auto-fill, minmax(228px, 1fr)); gap: 12px; }
+.catalog-card { border-radius: 12px; padding: 15px 15px 13px; }
+.catalog-card .card-body {
+  display: grid; grid-template-columns: 42px minmax(0, 1fr);
+  gap: 2px 12px; align-items: start;
+}
+.catalog-card .card-icon {
+  grid-row: auto; width: 42px; height: 42px; border-radius: 11px;
+  border: 1px solid var(--hairline); background: #EFF4ED; color: #0F4A2E;
+}
+.catalog-card .card-text { min-width: 0; }
+.catalog-card .card-title { margin: 2px 0 4px; font-size: 14px; }
+.catalog-card .card-desc { font-size: 11.5px; line-height: 1.5; }
+.catalog-card .card-foot {
+  display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 12px;
+}
+.catalog-card .card-action { font-size: 11px; opacity: .55; transition: opacity .15s ease; white-space: nowrap; }
+.catalog-card:hover .card-action { opacity: 1; text-decoration: none; }
+.catalog-card .card-badge { flex: none; }
+.catalog-card:hover { border-color: #9AA79C; background: #FCFDFB; }
+.catalog-card:active { transform: scale(.995); }
+
+/* warna ikon per kategori — membantu orang menemukan alat lebih cepat */
+.catalog-card[data-cat="organize"] .card-icon  { background: #FDEBE9; border-color: #F4D4CF; color: #C4402F; }
+.catalog-card[data-cat="convert"] .card-icon   { background: #E9F0FB; border-color: #D3E0F6; color: #2E63C9; }
+.catalog-card[data-cat="compress"] .card-icon  { background: #EAF4EC; border-color: #CFE4D4; color: #1E7A4C; }
+.catalog-card[data-cat="edit"] .card-icon      { background: #FDF1E3; border-color: #F5DFC4; color: #B96A16; }
+.catalog-card[data-cat="ocr"] .card-icon       { background: #F1EBFB; border-color: #E0D4F5; color: #6845BE; }
+.catalog-card[data-cat="security"] .card-icon  { background: #FDEBE9; border-color: #F4D4CF; color: #BE3A2D; }
+.catalog-card[data-cat="watermark"] .card-icon { background: #E8F5F6; border-color: #CDE8EA; color: #0B7580; }
+.catalog-card[data-cat="ai"] .card-icon        { background: #FBEAF4; border-color: #F2D2E6; color: #AB377F; }
+.catalog-card[data-cat="workflow"] .card-icon  { background: #EEF1F8; border-color: #DADFF0; color: #4457A8; }
+.catalog-card[data-cat="platform"] .card-icon  { background: #F1F1EC; border-color: #E2E2D8; color: #5E6157; }
+
+/* ---------- pencarian & tab ---------- */
+.tools-count-badge { background: #175E3C; border-radius: 99px; }
+.cat-tabs-scroll { flex-wrap: wrap; overflow: visible; gap: 7px; row-gap: 7px; padding-bottom: 2px; margin-bottom: 20px; }
+.cat-tab { border-radius: 99px; padding: 6px 11px; font-size: 12px; }
+.cat-tab.active { background: #175E3C; border-color: #175E3C; }
+.catalog-search-input { border-radius: 99px; font-size: 12.5px; }
+.catalog-title h2 { letter-spacing: -.02em; }
+.catalog-sub { font-size: 13px; line-height: 1.6; }
+
+/* area unggah mengecil setelah berkas dipilih agar fokus ke langkah 2 */
+.dropzone.has-files { height: 96px; }
+.dropzone.has-files .format-hint { display: none; }
+.dropzone.has-files .upload-art { width: 32px; height: 32px; margin-bottom: 8px; font-size: 16px; }
+.file-list { max-height: 190px; }
+
+/* ---------- keterbacaan bagian lain ---------- */
+.trust-strip strong { font-size: 12px; }
+.trust-strip small { font-size: 10.5px; line-height: 1.55; }
+.hero-notes { flex-wrap: wrap; row-gap: 8px; }
+.hero-notes b { font-size: 13px; }
+.bottom-note p { font-size: 11px; }
+
+/* ---------- responsif ---------- */
+@media (max-width: 900px) {
+  .workbench-head { align-items: flex-start; }
+  .wb-head-actions { gap: 8px; }
+  .secure-label { display: none; }
+}
+@media (max-width: 640px) {
+  .tool-desc { font-size: 12px; }
+  .wb-steps { gap: 5px; }
+  .wb-step { font-size: 10px; padding: 4px 9px; }
+  .catalog-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 9px; }
+  .catalog-card { padding: 12px; }
+  .catalog-card .card-body { grid-template-columns: 34px minmax(0, 1fr); gap: 2px 9px; }
+  .catalog-card .card-icon { width: 34px; height: 34px; border-radius: 9px; }
+  .catalog-card .card-title { font-size: 12.5px; }
+  .catalog-card .card-desc { font-size: 10.5px; }
+  .catalog-card .card-action { display: none; }
+  .result-actions { flex-direction: column; align-items: stretch; }
+  .result-actions .convert-button { flex: none; width: 100%; }
+  .result-actions .text-button { text-align: left; }
+}
+@media (max-width: 400px) {
+  .catalog-grid { grid-template-columns: 1fr; }
+}
+
+/* ---------- tema gelap ---------- */
+:root[data-theme="dark"] .tool-desc { color: #A8B1A6; }
+:root[data-theme="dark"] .wb-step { background: #141715; border-color: #333A33; color: #8B948A; }
+:root[data-theme="dark"] .wb-step .wb-step-n { background: #22271F; color: #9DC0A8; }
+:root[data-theme="dark"] .wb-step.active { background: #16211A; border-color: #2C5F43; color: #9DC0A8; }
+:root[data-theme="dark"] .wb-step.active .wb-step-n { background: #2C5F43; color: #EFF4ED; }
+:root[data-theme="dark"] #change-tool-btn { background: #1D211D; border-color: #333A33; color: #9DC0A8; }
+:root[data-theme="dark"] #change-tool-btn:hover { background: #20261F; border-color: #2C5F43; }
+:root[data-theme="dark"] .result-card { background: #16211A; border-color: #2C4F3D; }
+:root[data-theme="dark"] .result-title { color: #9DC0A8; }
+:root[data-theme="dark"] .catalog-card .card-icon { background: #141715; border-color: #333A33; color: #9DC0A8; }
+:root[data-theme="dark"] .tools-count-badge { background: #2C5F43; }
+:root[data-theme="dark"] .cat-tab.active { background: #E8ECE7; border-color: #E8ECE7; color: #141715; }
+:root[data-theme="dark"] .catalog-search-input { background: #141715; color: #E8ECE7; border-color: #333A33; }
+:root[data-theme="dark"] .field-hint { color: #8B948A; }
+
+/* elemen yang sebelumnya masih memakai warna terang di tema gelap */
+:root[data-theme="dark"] .dropzone { background: #141715; border-color: #333A33; }
+:root[data-theme="dark"] .dropzone:hover,
+:root[data-theme="dark"] .dropzone.dragover { background: #182018; border-color: #2C5F43; }
+:root[data-theme="dark"] .upload-art { background: #1D211D; border-color: #333A33; color: #9DC0A8; }
+:root[data-theme="dark"] .drop-help { color: #8B948A; }
+:root[data-theme="dark"] .drop-help u { color: #9DC0A8; }
+:root[data-theme="dark"] .format-hint { color: #6F7A6F; }
+:root[data-theme="dark"] .field-label { color: #8B948A; }
+:root[data-theme="dark"] .select-wrap select,
+:root[data-theme="dark"] .advanced-options input,
+:root[data-theme="dark"] .advanced-options select,
+:root[data-theme="dark"] .tool-mode select { background: #141715; color: #E8ECE7; border-color: #333A33; }
+:root[data-theme="dark"] .btn-sm.ghost,
+:root[data-theme="dark"] .btn-sm { background: #1D211D; color: #C9D0C7; border: 1px solid #333A33; }
+:root[data-theme="dark"] .btn-sm.ghost:hover,
+:root[data-theme="dark"] .btn-sm:hover { background: #20261F; border-color: #2C5F43; }
+:root[data-theme="dark"] .catalog-title h2 { color: #EEF2EC; }
+:root[data-theme="dark"] .catalog-sub { color: #A8B1A6; }
+:root[data-theme="dark"] .catalog-card .card-action { color: #9DC0A8; }
+:root[data-theme="dark"] .catalog-card .card-badge { border-color: #3A423A; color: #C9D0C7; }
+:root[data-theme="dark"] .hero-notes { color: #A8B1A6; }
+:root[data-theme="dark"] .hero-notes b { color: #9DC0A8; }
+:root[data-theme="dark"] .eyebrow { color: #8B948A; }
+:root[data-theme="dark"] .trust-strip small { color: #A8B1A6; }
+:root[data-theme="dark"] .terms { color: #8B948A; }
+:root[data-theme="dark"] .file-row .file-ext { color: #9DC0A8; }
+:root[data-theme="dark"] .file-row small { color: #8B948A; }
+:root[data-theme="dark"] .file-row button { color: #9AA39C; }
+:root[data-theme="dark"] .nav-link { color: #9AA39C; }
+:root[data-theme="dark"] .nav-link:hover,
+:root[data-theme="dark"] .nav-link.active { color: #9DC0A8; }
+:root[data-theme="dark"] .free-badge { background: #16211A; border-color: #2C4F3D; color: #9DC0A8; }
+:root[data-theme="dark"] .free-badge > span:first-child { background: #4E9A6C; }
+:root[data-theme="dark"] .btn-nav-tool { background: #1D211D; border-color: #333A33; color: #C9D0C7; }
+:root[data-theme="dark"] .btn-nav-tool:hover { background: #20261F; border-color: #2C5F43; }
+:root[data-theme="dark"] .brand-light { color: #8B948A; }
+
+/* ==========================================================================
+   Penyusun halaman visual (pratinjau thumbnail + susun ulang)
+   ========================================================================== */
+.catalog-card { position: relative; }
+.card-fav {
+  position: absolute; top: 8px; right: 8px; z-index: 2;
+  width: 26px; height: 26px; display: grid; place-items: center;
+  border: 1px solid var(--line, #E4DED1); border-radius: 50%;
+  background: var(--card, #fff); color: #A99F8B; font-size: 13px; line-height: 1;
+  cursor: pointer; transition: color .15s ease, border-color .15s ease, transform .15s ease;
+}
+.card-fav:hover { color: #C9A227; border-color: #C9A227; transform: scale(1.06); }
+.card-fav.active { color: #C9A227; border-color: #E3C766; background: #FFF9E6; }
+
+/* Favorit & terakhir dipakai */
+.recent-favorites { display: grid; gap: 8px; margin: 0 0 14px; }
+.rf-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.rf-label { font: 600 10.5px var(--mono, monospace); letter-spacing: .08em; text-transform: uppercase; color: #8A8172; }
+.rf-chips { display: flex; gap: 7px; flex-wrap: wrap; }
+.rf-chip {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 6px 12px; border: 1px solid var(--line, #E4DED1); border-radius: 99px;
+  background: var(--card, #fff); color: #2E2A22; font-size: 12px; font-weight: 600; cursor: pointer;
+}
+.rf-chip:hover { border-color: #175E3C; color: #0F4A2E; background: #F1F7F1; }
+.rf-chip svg { width: 14px; height: 14px; }
+
+/* Tombol batalkan proses */
+.progress-cancel {
+  margin-top: 10px; align-self: flex-start;
+  padding: 6px 12px; font-size: 11.5px; font-weight: 600;
+  border: 1px solid #E2C4C0; border-radius: 99px; background: #FFF7F6; color: #A03B2E; cursor: pointer;
+}
+.progress-cancel:hover { background: #FBEDEA; border-color: #C96A5C; }
+.progress-cancel:disabled { opacity: .6; cursor: default; }
+
+/* Overlay penyusun halaman */
+.po-overlay {
+  position: fixed; inset: 0; z-index: 15000; display: flex; align-items: center; justify-content: center;
+  background: rgba(20, 18, 12, .45); padding: 18px;
+}
+.po-overlay[hidden] { display: none; }
+.po-window {
+  width: min(980px, 100%); max-height: min(88vh, 900px); display: flex; flex-direction: column;
+  background: var(--card, #fff); border: 1px solid var(--line, #E4DED1); border-radius: 16px;
+  box-shadow: 0 24px 60px rgba(20, 18, 12, .28); overflow: hidden;
+}
+.po-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; padding: 16px 18px 8px; }
+.po-title { display: grid; gap: 3px; min-width: 0; }
+.po-title strong { font-size: 15px; }
+.po-title small { color: #8A8172; font-size: 11.5px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.po-close { border: none; background: transparent; font-size: 20px; line-height: 1; color: #8A8172; cursor: pointer; padding: 2px 6px; }
+.po-close:hover { color: #2E2A22; }
+.po-help { margin: 0 18px 10px; font-size: 11.5px; line-height: 1.6; color: #6E675C; }
+.po-toolbar { display: flex; align-items: center; gap: 8px; padding: 0 18px 10px; flex-wrap: wrap; }
+.po-count { margin-left: auto; font: 600 11px var(--mono, monospace); color: #6E675C; }
+.po-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(108px, 1fr)); gap: 10px;
+  padding: 4px 18px 14px; overflow-y: auto; flex: 1; min-height: 160px;
+}
+.po-loading { grid-column: 1 / -1; padding: 26px 8px; text-align: center; color: #8A8172; font-size: 12.5px; }
+.po-error { color: #A03B2E; }
+.po-card {
+  position: relative; border: 1.5px solid var(--line, #E4DED1); border-radius: 10px; overflow: hidden;
+  background: #FBFAF4; cursor: grab; transition: border-color .12s ease, transform .12s ease, box-shadow .12s ease;
+}
+.po-card img { display: block; width: 100%; aspect-ratio: 1 / 1.35; object-fit: contain; background: #fff; pointer-events: none; }
+.po-card:hover { border-color: #175E3C; }
+.po-card.selected { border-color: #175E3C; box-shadow: 0 0 0 3px rgba(23, 94, 60, .22); }
+.po-card.dragover { border-color: #C9A227; transform: scale(1.03); }
+.po-card.removed { opacity: .45; }
+.po-card.removed img { filter: grayscale(1); }
+.po-num {
+  position: absolute; left: 6px; bottom: 6px; padding: 2px 7px; border-radius: 99px;
+  background: rgba(20, 18, 12, .72); color: #fff; font: 600 10px var(--mono, monospace);
+}
+.po-eye {
+  position: absolute; top: 6px; right: 6px; width: 26px; height: 26px; display: grid; place-items: center;
+  border: 1px solid rgba(20, 18, 12, .16); border-radius: 50%; background: rgba(255, 255, 255, .92);
+  color: #2E2A22; cursor: pointer;
+}
+.po-eye:hover { border-color: #175E3C; color: #0F4A2E; }
+.po-foot {
+  display: flex; justify-content: flex-end; gap: 10px; padding: 12px 18px 16px;
+  border-top: 1px solid var(--line, #E4DED1); background: #FBFAF4;
+}
+.po-foot .btn-primary { padding: 10px 18px; }
+
+:root[data-theme="dark"] .progress-cancel { background: #2A1A18; border-color: #5A2E28; color: #E4A79C; }
+:root[data-theme="dark"] .progress-cancel:hover { background: #341F1C; }
+:root[data-theme="dark"] .card-fav { background: #141715; border-color: #333A33; color: #8B948A; }
+:root[data-theme="dark"] .card-fav.active { background: #2A2415; border-color: #6B5A25; color: #E3C766; }
+:root[data-theme="dark"] .rf-label { color: #8B948A; }
+:root[data-theme="dark"] .rf-chip { background: #141715; border-color: #333A33; color: #C9D0C7; }
+:root[data-theme="dark"] .rf-chip:hover { background: #182018; border-color: #2C5F43; color: #9DC0A8; }
+:root[data-theme="dark"] .po-window { background: #141715; border-color: #333A33; }
+:root[data-theme="dark"] .po-title small, :root[data-theme="dark"] .po-help, :root[data-theme="dark"] .po-count, :root[data-theme="dark"] .po-loading { color: #8B948A; }
+:root[data-theme="dark"] .po-card { background: #1A1D1A; border-color: #333A33; }
+:root[data-theme="dark"] .po-card img { background: #0E100E; }
+:root[data-theme="dark"] .po-eye { background: rgba(20, 22, 20, .92); border-color: #333A33; color: #C9D0C7; }
+:root[data-theme="dark"] .po-foot { background: #141715; border-color: #333A33; }
+:root[data-theme="dark"] .po-overlay { background: rgba(6, 8, 6, .62); }

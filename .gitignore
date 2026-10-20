@@ -1,0 +1,7 @@
+/storage/
+/.venv/
+__pycache__/
+*.pyc
+/.env
+/pdfforge
+/pdfforge.exe
